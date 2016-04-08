@@ -17,6 +17,9 @@ class BGView: UIView {
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var preButton: UIButton!
     
+    var picIndex: Int!
+    var picLastIndex: Int!
+    var picNames: [String]!
     var animTime: Double?
     
     @IBAction func closeClick(sender: AnyObject) {
@@ -25,13 +28,40 @@ class BGView: UIView {
     }
     
     override func awakeFromNib() {
-        
-        preButton.hidden = true
-        nextButton.hidden = true
-        
+           
     }
     
+    @IBAction func nextPictureClick(sender: UIButton) {
+        preButton.hidden = false
+        if (picIndex + 1) == picLastIndex {
+            nextButton.hidden = true
+        }
+        showImageView.image = UIImage(named: picNames[picIndex + 1])
+        picIndex = picIndex + 1
+    }
+    
+    @IBAction func prePictureClick(sender: UIButton) {
+        nextButton.hidden = false
+        if (picIndex - 1) == 0 {
+            preButton.hidden = true
+        }
+        showImageView.image = UIImage(named: picNames[picIndex - 1])
+        picIndex = picIndex - 1
+    }
+
+    
     func setShowImage(showImage: UIImage, startPoint: CGPoint, width: CGFloat) {
+        
+        if picIndex == 0 {
+            preButton.hidden = true
+            nextButton.hidden = false
+        }else if picIndex == picLastIndex {
+            preButton.hidden = false
+            nextButton.hidden = true
+        }else {
+            preButton.hidden = false
+            nextButton.hidden = false
+        }
         
         if let time = animTime {
         }else {

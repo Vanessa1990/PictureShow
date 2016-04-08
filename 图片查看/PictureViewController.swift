@@ -75,7 +75,10 @@ extension PictureViewController: UICollectionViewDataSource, UICollectionViewDel
         let x = 20 + (cell?.contentView.frame.size.width)! * 0.5 + ((cell?.contentView.frame.size.width)! + 20) * (CGFloat(indexPath.row) % 3)
         let y = (point?.y)! - collectionView.contentOffset.y
         let startP = CGPointMake(x, y)
-        bgView?.animTime = 1.2
+        bgView?.animTime = 1.0
+        bgView?.picIndex = indexPath.row
+        bgView?.picLastIndex = imageNames!.count - 1
+        bgView?.picNames = imageNames!
         bgView?.setShowImage(UIImage(named: imageNames![indexPath.row])!, startPoint: startP, width: (cell?.contentView.bounds.size.width)!)
         
     }
